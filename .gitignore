@@ -1,0 +1,22 @@
+# --- Système d'exploitation ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Éditeurs de code ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Environnements & Secrets ---
+.env
+.env.local
+*.log
+
+# --- Dépendances & Compilations ---
+node_modules/
+venv/
+__pycache__/
+dist/
+build/

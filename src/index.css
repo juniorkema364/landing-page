@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+@theme {
+  /* Typography */
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Palette — AXIOME : noir & or */
+  --color-noir-950: #080705;
+  --color-noir-900: #0c0a07;
+  --color-noir-800: #141109;
+  --color-noir-700: #1e1a10;
+  --color-noir-600: #2c2617;
+  --color-noir-500: #453c24;
+
+  --color-or-100: #f6ecd6;
+  --color-or-200: #ecdab0;
+  --color-or-300: #ddc088;
+  --color-or-400: #cba760;
+  --color-or-500: #b98f45;
+  --color-or-600: #93712f;
+  --color-or-700: #6b5222;
+
+  --color-ivoire: #f5f1e8;
+  --color-ivoire-dim: #d8d2c2;
+
+  --animate-fade-up: fade-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-shimmer: shimmer 2.6s linear infinite;
+  --animate-marquee: marquee 42s linear infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(32px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes shimmer {
+    from {
+      background-position: -200% 0;
+    }
+    to {
+      background-position: 200% 0;
+    }
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-noir-600);
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-noir-950);
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-noir-950);
+    color: var(--color-ivoire);
+    font-family: var(--font-sans);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: none;
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    body {
+      cursor: auto;
+    }
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  a, button {
+    cursor: none;
+  }
+  @media (hover: none), (pointer: coarse) {
+    a, button {
+      cursor: pointer;
+    }
+  }
+
+  ::selection {
+    background: var(--color-or-500);
+    color: var(--color-noir-950);
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--color-or-400);
+    outline-offset: 4px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-noir-950);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-or-600);
+    border-radius: 999px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .container-axiome {
+    width: 100%;
+    max-width: 90rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .container-axiome {
+      padding-inline: 3rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .container-axiome {
+      padding-inline: 5rem;
+    }
+  }
+
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-or-400);
+  }
+
+  .noise-overlay {
+    position: relative;
+  }
+  .noise-overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.045;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .text-gradient-or {
+    background: linear-gradient(90deg, var(--color-or-300), var(--color-or-500) 45%, var(--color-or-300));
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: var(--animate-shimmer);
+  }
+
+  .cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    margin: -3px;
+    border-radius: 999px;
+    background: var(--color-or-400);
+    pointer-events: none;
+    z-index: 999;
+  }
+  .cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    margin: -20px;
+    border-radius: 999px;
+    border: 1px solid var(--color-or-400);
+    pointer-events: none;
+    z-index: 999;
+    mix-blend-mode: difference;
+  }
+}
